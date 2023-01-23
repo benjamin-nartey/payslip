@@ -1,0 +1,89 @@
+.home-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-container-left-column {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-container-left-column .brown-nav-column {
+  width: 80px;
+  height: 100%;
+  background-color: #624736;
+}
+
+.home-container-left-column .hero-img-container {
+  position: relative;
+  width: 550px;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.home-container-right-column {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* display: grid;
+  place-items: center; */
+}
+
+.hero-image {
+  height: 35rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.cocoa-leave {
+  position: fixed;
+  height: 25rem;
+  left: 0;
+  bottom: 0;
+  transform: rotate(145deg) translate(12rem, -5rem);
+}
+
+.cocoa-flower {
+  position: fixed;
+  width: 15rem;
+  left: 50%;
+  bottom: -5.5rem;
+  transform: translate(-50%, -50%);
+}
+
+.logo-header-container {
+  display: grid;
+  place-items: center;
+  margin-bottom: 3rem;
+}
+
+.brand-name {
+  font-size: 32px;
+  font-weight: 900;
+  color: #624736;
+}
+.payslip-text {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Dancing Script", cursive;
+  color: #624736;
+}
+
+.logo-container {
+  margin-bottom: 1rem;
+}
+
+.logo-container img {
+  display: block;
+  height: 4.5rem;
+}

@@ -1,0 +1,28 @@
+.login-container {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 2rem 0;
+}
+
+.form-input-container {
+  width: 15rem;
+}
+
+.input-control {
+  width: 100%;
+  height: 2.3rem;
+  margin-top: 2rem;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #624736;
+  font-size: 15px;
+  padding-left: 10px;
+}
+
+.submit {
+  border: none !important;
+  background-color: #624736;
+  color: #fff;
+  cursor: pointer;
+}
