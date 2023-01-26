@@ -21,8 +21,16 @@
 }
 
 .submit {
+  position: relative;
   border: none !important;
   background-color: #624736;
   color: #fff;
   cursor: pointer;
 }
+
+/* #clipLoader {
+  position: absolute;
+  height: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
