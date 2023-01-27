@@ -3,6 +3,7 @@
   display: grid;
   place-items: center;
   padding: 2rem 0;
+  transform: translateY(5rem);
 }
 
 .form-input-container {
@@ -28,9 +29,10 @@
   cursor: pointer;
 }
 
-/* #clipLoader {
-  position: absolute;
-  height: 30px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+span {
+  font-size: 16px;
+  font-size: small;
+}
+span > .email {
+  color: green;
+}

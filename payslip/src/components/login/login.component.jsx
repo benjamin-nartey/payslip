@@ -27,7 +27,7 @@ const Login = () => {
   const [isVerifiedToken, setIsVerifiedToken] = useState(false);
   const [token, setToken] = useState(null);
   const [email, setEmail] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const buttonState = {
@@ -41,14 +41,19 @@ const Login = () => {
       const loginRequestParams = { subsidiary, staff_number };
 
       try {
+        setLoading(true);
+
         const response = await api.post("/login", loginRequestParams);
         console.log(response);
 
-        const token = response.data.token;
-        const email = response.data.email_verify.toLowerCase();
+        const token = response.data?.token;
+        const email = response.data?.email_verify?.toLowerCase();
 
         setEmail(email);
         setToken(token);
+        if (token) {
+          setLoading(false);
+        }
 
         if (response.data) {
           const generateTokenParams = {
@@ -67,6 +72,19 @@ const Login = () => {
           console.log(responseToken);
         }
       } catch (error) {
+        switch (error.code) {
+          case "ERR_NETWORK":
+            alert("Network error, check your internet connection");
+            break;
+          case "ERR_BAD_REQUEST":
+            alert(
+              "Request Error, make sure your subsidiary matches your Staff Id"
+            );
+            break;
+          default:
+            console.log(error.code);
+        }
+        setLoading(false);
         console.log(error);
       }
     }
@@ -82,23 +100,24 @@ const Login = () => {
         });
 
         console.log("here is the return object", responseData);
-        if (responseData) {
+
+        if (responseData.data?.success) {
+          localStorage.setItem("token", JSON.stringify(token));
           navigate("/check-payslip");
+        }
+
+        switch (responseData.data?.error) {
+          case "Token does not match":
+            alert("Invalid Token");
+            break;
+          case "Token Expired":
+            alert("Token Expired");
+          default:
+            console.log(responseData.data.error);
         }
       } catch (error) {
         console.log(error);
       }
-
-      // const generateTokenParams = {email };
-      // try {
-      //   const responseToken = await api.post(
-      //     "/generateOTP",
-      //     "benjaminnartey37@gmail.com"
-      //   );
-      //   console.log(responseToken);
-      // } catch (error) {
-      //   console.log(error);
-      // }
     }
   };
 
@@ -120,6 +139,7 @@ const Login = () => {
             value={subsidiary}
             className="input-control"
             name="subsidiary"
+            required
           >
             <option value="0">Select subsidiary</option>
             {options.map((option) => (
@@ -135,33 +155,44 @@ const Login = () => {
             name="staff_number"
             value={staff_number}
             onChange={handleChange}
+            required
           />
 
           {token && (
-            <input
-              className="token input-control"
-              type="text"
-              placeholder="Enter token"
-              name="verification_code"
-              value={verification_code}
-              onChange={handleChange}
-            />
+            <>
+              <span>
+                A token has been sent to <span className="email">{email}</span>
+              </span>
+
+              <input
+                className="token input-control"
+                type="text"
+                placeholder="Enter token"
+                name="verification_code"
+                value={verification_code}
+                onChange={handleChange}
+                required
+              />
+            </>
           )}
 
           {!token ? (
             <button
+              disabled={loading ? true : false}
               onClick={() => (buttonState.button = "generateToken")}
               className="submit input-control"
               type="submit"
             >
               Generate Token
-              <ClipLoaderSpinner
-                color={brandColor}
-                loading={loading}
-                cssOverride={override}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
+              {loading && (
+                <ClipLoaderSpinner
+                  color={brandColor}
+                  loading={loading}
+                  cssOverride={override}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              )}
             </button>
           ) : (
             <button
