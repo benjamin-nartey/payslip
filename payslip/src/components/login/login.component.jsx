@@ -1,19 +1,15 @@
 import "./login.component.styles.css";
-// import Select from "react-select";
 import { options } from "../../utils/select-subsidiary.utils";
-import { useState, CSSProperties } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SpiClipLoaderSpinnerSpinner from "../clip-loader/clip-loader-spinner.component";
 import api from "../../api/axios";
-import ClipLoaderSpinner from "../clip-loader/clip-loader-spinner.component";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const override = {
   display: "block",
   margin: "0 auto",
-  borderColor: "red",
+  borderColor: "#624736",
 };
-
-const brandColor = "#624736";
 
 const defaultFormFields = {
   subsidiary: "",
@@ -24,10 +20,11 @@ const defaultFormFields = {
 const Login = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { subsidiary, staff_number, verification_code } = formFields;
-  const [isVerifiedToken, setIsVerifiedToken] = useState(false);
+  // const [isVerifiedToken, setIsVerifiedToken] = useState(false);
   const [token, setToken] = useState(null);
   const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mainLoading, setMainLoading] = useState(false);
   const navigate = useNavigate();
 
   const buttonState = {
@@ -102,8 +99,14 @@ const Login = () => {
         console.log("here is the return object", responseData);
 
         if (responseData.data?.success) {
+          setMainLoading(true);
           localStorage.setItem("token", JSON.stringify(token));
-          navigate("/check-payslip");
+          const navigateHandle = setTimeout(() => {
+            navigate("/check-payslip");
+            clearTimeout(navigateHandle);
+          }, 3000);
+
+          // setMainLoading(false);
         }
 
         switch (responseData.data?.error) {
@@ -112,6 +115,7 @@ const Login = () => {
             break;
           case "Token Expired":
             alert("Token Expired");
+            break;
           default:
             console.log(responseData.data.error);
         }
@@ -131,81 +135,100 @@ const Login = () => {
   console.log(email, token);
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-input-container">
-          <select
-            onChange={handleChange}
-            value={subsidiary}
-            className="input-control"
-            name="subsidiary"
-            required
-          >
-            <option value="0">Select subsidiary</option>
-            {options.map((option) => (
-              <option key={option.id} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <input
-            className="staff-no input-control"
-            type="text"
-            placeholder="Enter staff number"
-            name="staff_number"
-            value={staff_number}
-            onChange={handleChange}
-            required
-          />
-
-          {token && (
-            <>
-              <span>
-                A token has been sent to <span className="email">{email}</span>
-              </span>
-
-              <input
-                className="token input-control"
-                type="text"
-                placeholder="Enter token"
-                name="verification_code"
-                value={verification_code}
-                onChange={handleChange}
-                required
-              />
-            </>
-          )}
-
-          {!token ? (
-            <button
-              disabled={loading ? true : false}
-              onClick={() => (buttonState.button = "generateToken")}
-              className="submit input-control"
-              type="submit"
+    <>
+      <div className="login-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-input-container">
+            <select
+              onChange={handleChange}
+              value={subsidiary}
+              className="input-control"
+              name="subsidiary"
+              required
             >
-              Generate Token
-              {loading && (
-                <ClipLoaderSpinner
-                  color={brandColor}
-                  loading={loading}
-                  cssOverride={override}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
+              <option value="0">Select subsidiary</option>
+              {options.map((option) => (
+                <option key={option.id} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <input
+              className="staff-no input-control"
+              type="text"
+              placeholder="Enter staff number"
+              name="staff_number"
+              value={staff_number}
+              onChange={handleChange}
+              required
+            />
+
+            {token && (
+              <>
+                <span>
+                  A token has been sent to{" "}
+                  <span className="email">{email}</span>
+                </span>
+
+                <input
+                  className="token input-control"
+                  type="text"
+                  placeholder="Enter token"
+                  name="verification_code"
+                  value={verification_code}
+                  onChange={handleChange}
+                  required
                 />
-              )}
-            </button>
-          ) : (
-            <button
-              onClick={() => (buttonState.button = "login")}
-              className="submit input-control"
-              type="submit"
-            >
-              Login
-            </button>
-          )}
-        </div>
-      </form>
-    </div>
+              </>
+            )}
+
+            {!token ? (
+              <button
+                disabled={loading ? true : false}
+                onClick={() => (buttonState.button = "generateToken")}
+                className="submit input-control"
+                type="submit"
+              >
+                Generate Token
+                {loading && (
+                  <div className="clip-loader-container">
+                    <ClipLoader
+                      size={25}
+                      loading={loading}
+                      cssOverride={override}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                    />
+                  </div>
+                )}
+              </button>
+            ) : (
+              <button
+                onClick={() => (buttonState.button = "login")}
+                className="submit input-control"
+                type="submit"
+              >
+                Login
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
+      {mainLoading && (
+        <>
+          <div className="clip-loader-container home-loader">
+            <ClipLoader
+              size={50}
+              loading={mainLoading}
+              cssOverride={override}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+          <div className="blur"></div>
+        </>
+      )}
+    </>
   );
 };
 

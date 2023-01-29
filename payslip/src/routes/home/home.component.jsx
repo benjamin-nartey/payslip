@@ -28,6 +28,7 @@ const Home = () => {
       </div>
       <CocoaLeave className="cocoa-leave" />
       <CocoaFlower className="cocoa-flower" />
+   
     </>
   );
 };

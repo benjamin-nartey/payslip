@@ -36,3 +36,18 @@ span {
 span > .email {
   color: green;
 }
+
+.blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.home-loader {
+  z-index: 99;
+}
