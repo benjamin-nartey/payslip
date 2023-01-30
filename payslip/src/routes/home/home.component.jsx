@@ -1,4 +1,5 @@
 import logo from "../../assets/logo-cocobod.png";
+
 import { ReactComponent as HeroImage } from "../../assets/Asset 2svghero.svg";
 import { ReactComponent as CocoaLeave } from "../../assets/Asset 1leaveSvg.svg";
 import { ReactComponent as CocoaFlower } from "../../assets/Asset 1svghero 1cocoaflower.svg";
@@ -28,7 +29,6 @@ const Home = () => {
       </div>
       <CocoaLeave className="cocoa-leave" />
       <CocoaFlower className="cocoa-flower" />
-   
     </>
   );
 };

@@ -1,6 +1,6 @@
 import "./login.component.styles.css";
 import { options } from "../../utils/select-subsidiary.utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -25,7 +25,15 @@ const Login = () => {
   const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [mainLoading, setMainLoading] = useState(false);
+  // const [checkToken, setCheckToken] = useState(null)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getToken = JSON.parse(localStorage.getItem("token"));
+    if (getToken) {
+      navigate("/check-payslip");
+    }
+  }, []);
 
   const buttonState = {
     button: "generateToken",
