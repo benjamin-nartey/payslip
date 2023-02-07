@@ -25,6 +25,8 @@ const Login = () => {
   const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [mainLoading, setMainLoading] = useState(false);
+  const [employee_id, setEmployee_id] = useState(null);
+  const [connection, setConnection] = useState(null);
   // const [checkToken, setCheckToken] = useState(null)
   const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ const Login = () => {
     if (getToken) {
       navigate("/check-payslip");
     }
-  }, []);
+  }, [navigate]);
 
   const buttonState = {
     button: "generateToken",
@@ -56,6 +58,8 @@ const Login = () => {
 
         setEmail(email);
         setToken(token);
+        setEmployee_id(staff_number);
+        setConnection(subsidiary);
         if (token) {
           setLoading(false);
         }
@@ -109,6 +113,8 @@ const Login = () => {
         if (responseData.data?.success) {
           setMainLoading(true);
           localStorage.setItem("token", JSON.stringify(token));
+          localStorage.setItem("employee_id", JSON.stringify(employee_id));
+          localStorage.setItem("connection", JSON.stringify(connection));
           const navigateHandle = setTimeout(() => {
             navigate("/check-payslip");
             clearTimeout(navigateHandle);
@@ -141,6 +147,7 @@ const Login = () => {
   console.log(formFields);
 
   console.log(email, token);
+  console.log(employee_id, connection);
 
   return (
     <>

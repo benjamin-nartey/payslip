@@ -1,0 +1,59 @@
+.check-payslip-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(210, 180, 140, 6),
+    rgba(210, 180, 140, 9)
+  );
+}
+.date-picker-container {
+  width: 600px;
+  padding: 1rem;
+  background-color: #faf9f6;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 1vmin;
+  display: grid;
+  place-items: center;
+}
+
+.date-picker-container span {
+  font-size: medium;
+  font-weight: 400;
+  color: #624736;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.date-picker-container form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-picker-container form input {
+  width: 200px;
+  height: 2rem;
+  border: 1px solid #624736;
+  margin-bottom: 1rem;
+}
+
+.date-picker-container form button {
+  width: 10rem;
+  padding: 6px 0;
+  border: none;
+  outline: none;
+  background-color: #624736;
+  color: aliceblue;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 0.5vmin;
+  font-weight: 700;
+  letter-spacing: 0.1ch;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
