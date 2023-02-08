@@ -1,0 +1,78 @@
+.payslip-receipt-container {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* height: 100%; */
+}
+
+.receipt-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.receipt-logo h1 {
+  font-size: 18px;
+  color: #624736;
+  font-weight: 700;
+}
+
+.receipt-letter-head-container {
+  text-align: center;
+}
+
+.receipt-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+}
+
+.label-div {
+  /* width: 400px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+  /* background-color: red; */
+}
+
+.label-div > span {
+  font-size: 11px;
+}
+
+.payslip-date-title {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.lable-name {
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.bank-details-container {
+  padding: 0.5rem;
+  width: 250px;
+  border: 1px solid #624736;
+  margin-top: 1rem;
+}
+
+.payment-to {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.payment-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-column-1,
+.payment-column-2 {
+  display: flex;
+  flex-direction: column;
+}

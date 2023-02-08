@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import "./check-payslip.styles.css";
 import api from "../../api/axios";
-import PayslipDataTable from "../../components/payslip-data-table/payslip-data-table.component";
+import { RiCloseFill, RiDownload2Fill } from "react-icons/ri";
+import PayslipReceipt from "../../components/payslip-receipt/payslip-receipt.component";
+
 // const setCurrentMonthAndYear = () => {
 //   const now = new Date();
 //   const month = `${now.getMonth()}`.padStart(2, "0");
@@ -23,6 +26,28 @@ const CheckPayslip = () => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [data, setData] = useState([]);
+  const [toggle, setToggle] = useState(false);
+  const printRef = useRef(null);
+
+  const handleDownloadPdf = async () => {
+    const element = printRef.current;
+
+    const pdf = new jsPDF("portrait", "px", [380, 380]);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    await html2canvas(element, { scale: 5 }).then(function (canvas) {
+      var data = canvas.toDataURL("image/png");
+      pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("label.pdf");
+    });
+  };
+
+  const toggleElement = () => {
+    if (data.length !== 0) {
+      setToggle(true);
+    }
+  };
 
   const { paylip_date } = formFields;
 
@@ -84,23 +109,45 @@ const CheckPayslip = () => {
   // }, [pString]);
   return (
     <div className="check-payslip-container">
-      <div className="date-picker-container">
-        <span>Select year and month</span>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="month"
-            id="payslipDate"
-            name="payslip_date"
-            value={paylip_date}
-            min="1995-03"
-            defaultValue="2022-05"
-            // max="2023-01"
-            onChange={handleChange}
+      {!toggle && (
+        <div className="date-picker-container">
+          <span>Select year and month</span>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="month"
+              id="payslipDate"
+              name="payslip_date"
+              value={paylip_date}
+              min="1995-03"
+              defaultValue="2022-05"
+              // max="2023-01"
+              onChange={handleChange}
+            />
+            <button onClick={toggleElement}>Submit</button>
+          </form>
+        </div>
+      )}
+      {toggle && (
+        <div className="payslip-main-container">
+          <PayslipReceipt
+            printRef={printRef}
+            style={{ height: "380px" }}
+            data={data}
           />
-          <button>Submit</button>
-        </form>
-      </div>
-      <PayslipDataTable data={data} />
+          <div className="closeBtn-container">
+            <RiCloseFill
+              className="close-btn "
+              onClick={() => setToggle(false)}
+            />
+          </div>
+          <div className="downloadBtn-container">
+            <RiDownload2Fill
+              onClick={handleDownloadPdf}
+              className="downloadBtn"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

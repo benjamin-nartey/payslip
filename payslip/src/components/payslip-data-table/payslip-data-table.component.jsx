@@ -1,7 +1,28 @@
 import "./payslip-data-table.styles.css";
 import { useTable } from "react-table";
 import { useMemo } from "react";
+import { useState, useEffect } from "react";
+
 const PayslipDataTable = ({ data }) => {
+  const allDeductions = data.map((deduceData) => {
+    return deduceData.Deduction_Amount;
+  });
+  console.log(allDeductions);
+
+  const deduceAmount = allDeductions.reduce((accumulator, currentValue) => {
+    return accumulator + Number(currentValue);
+  }, 0);
+  const finalDeduceValue = deduceAmount.toFixed(4);
+
+  const totalDedutions = useState(finalDeduceValue);
+  // console.log(deduceAmount.toFixed(2));
+
+  console.log(totalDedutions);
+  const [newData, setNewData] = useState([]);
+
+  useEffect(() => {
+    setNewData(data[0]);
+  }, [data]);
   useMemo(() => data, []);
   const columns = useMemo(
     () => [
@@ -59,6 +80,31 @@ const PayslipDataTable = ({ data }) => {
                 </tr>
               );
             })}
+            {[newData]?.map((staffData) => (
+              <>
+                <tr>
+                  <td className="text-bold"></td>
+                  <td className="text-bold">GROSS SALARY</td>
+                  <td className="text-bold">{staffData?.Gross_Salary}</td>
+                  <td className="text-bold">TOTAL DEDUCTION</td>
+                  <td className="text-bold">{totalDedutions[0]}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="text-bold">NETPAY</td>
+                  <td className="text-bold">{staffData?.Net_Pay}</td>
+                  <td className="text-bold">TAXABLE</td>
+                  <td className="text-bold">{staffData?.Taxable}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="text-bold">TAKE HOMEPAY</td>
+                  <td className="text-bold">{staffData?.Take_Home_Pay}</td>
+                  <td className="text-bold"></td>
+                  <td className="text-bold"></td>
+                </tr>
+              </>
+            ))}
           </tbody>
         </table>
       </div>
