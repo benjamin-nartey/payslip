@@ -2,7 +2,8 @@ import "./payslip-receipt.styles.css";
 import PayslipDataTable from "../payslip-data-table/payslip-data-table.component";
 import cocobodLogo from "../../assets/logo-cocobod.png";
 import { useState, useEffect } from "react";
-const PayslipReceipt = ({ data, printRef }) => {
+
+const PayslipReceipt = ({ data, printRef, payslipTitle }) => {
   const [newData, setNewData] = useState([]);
 
   useEffect(() => {
@@ -14,8 +15,8 @@ const PayslipReceipt = ({ data, printRef }) => {
       className="payslip-receipt-container"
       style={{ padding: "20px", size: "A4" }}
     >
-      {[newData]?.map((staffData) => (
-        <div>
+      {[newData]?.map((staffData, index) => (
+        <div key={index}>
           <div className="logo-container receipt-logo">
             <img
               style={{ height: "60px" }}
@@ -25,7 +26,9 @@ const PayslipReceipt = ({ data, printRef }) => {
             <h1>GHANA COCOA BOARD</h1>
           </div>
           <div className="receipt-letter-head-container">
-            <span className="payslip-date-title">Payslip for january 2023</span>
+            <span className="payslip-date-title">
+              Payslip for {payslipTitle}
+            </span>
             <div className="receipt-header">
               <div className="receipt-header-left">
                 <div className="employee label-div">
@@ -72,7 +75,7 @@ const PayslipReceipt = ({ data, printRef }) => {
                   <span className="date-employed-lable lable-name">
                     DATE EMPLOYED
                   </span>
-                  <span>{`"${staffData.HireDate}"`.slice(1, 12)}</span>
+                  <span>{`"${staffData?.HireDate}"`.slice(1, 12)}</span>
                 </div>
                 <div className="division label-div">
                   <span className="division lable-name">DIVISION</span>
@@ -124,11 +127,11 @@ const PayslipReceipt = ({ data, printRef }) => {
             <span style={{ fontSize: "10px" }}>ACCOUNT NO.</span>
           </div>
 
-          {[newData]?.map((staffData) => (
-            <div className="payment-column-2">
+          {[newData]?.map((staffData, index) => (
+            <div key={index} className="payment-column-2">
               <span style={{ fontSize: "10px" }}>{staffData?.Bank_Name}</span>
               <span style={{ fontSize: "10px" }}>{staffData?.Branch_Name}</span>
-              <span style={{ fontSize: "10px" }}>{staffData.BankAC}</span>
+              <span style={{ fontSize: "10px" }}>{staffData?.BankAC}</span>
             </div>
           ))}
         </div>

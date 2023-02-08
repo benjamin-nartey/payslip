@@ -66,8 +66,8 @@ const Login = () => {
 
         if (response.data) {
           const generateTokenParams = {
-            // email: response.data?.email_verify?.toLowerCase()
-            email: " benjaminnartey37@gmail.com",
+            email: response.data?.email_verify?.toLowerCase(),
+            // email: " benjaminnartey37@gmail.com",
           };
           const responseToken = await api.post(
             "/generateOTP",
@@ -78,7 +78,7 @@ const Login = () => {
               },
             }
           );
-          console.log(responseToken);
+          // console.log(responseToken);
         }
       } catch (error) {
         switch (error.code) {
@@ -144,7 +144,7 @@ const Login = () => {
 
     setFormFields({ ...formFields, [name]: value });
   };
-  console.log(formFields);
+  // console.log(formFields);
 
   console.log(email, token);
   console.log(employee_id, connection);

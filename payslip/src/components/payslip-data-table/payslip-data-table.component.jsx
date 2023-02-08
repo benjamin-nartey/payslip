@@ -1,13 +1,13 @@
 import "./payslip-data-table.styles.css";
 import { useTable } from "react-table";
 import { useMemo } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 
 const PayslipDataTable = ({ data }) => {
   const allDeductions = data.map((deduceData) => {
     return deduceData.Deduction_Amount;
   });
-  console.log(allDeductions);
+  // console.log(allDeductions);
 
   const deduceAmount = allDeductions.reduce((accumulator, currentValue) => {
     return accumulator + Number(currentValue);
@@ -17,7 +17,7 @@ const PayslipDataTable = ({ data }) => {
   const totalDedutions = useState(finalDeduceValue);
   // console.log(deduceAmount.toFixed(2));
 
-  console.log(totalDedutions);
+  // console.log(totalDedutions);
   const [newData, setNewData] = useState([]);
 
   useEffect(() => {
@@ -61,8 +61,8 @@ const PayslipDataTable = ({ data }) => {
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
+                {headerGroup.headers.map((column, index) => (
+                  <th key={index} {...column.getHeaderProps()}>
                     {column.render("Header")}
                   </th>
                 ))}
@@ -74,14 +74,16 @@ const PayslipDataTable = ({ data }) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}> {cell.render("Cell")} </td>
+                  {row.cells.map((cell, index) => (
+                    <td key={index} {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </td>
                   ))}
                 </tr>
               );
             })}
-            {[newData]?.map((staffData) => (
-              <>
+            {[newData]?.map((staffData, index) => (
+              <Fragment key={index}>
                 <tr>
                   <td className="text-bold"></td>
                   <td className="text-bold">GROSS SALARY</td>
@@ -103,7 +105,7 @@ const PayslipDataTable = ({ data }) => {
                   <td className="text-bold"></td>
                   <td className="text-bold"></td>
                 </tr>
-              </>
+              </Fragment>
             ))}
           </tbody>
         </table>
