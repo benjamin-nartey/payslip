@@ -31,83 +31,60 @@ const PayslipReceipt = ({ data, printRef, payslipTitle }) => {
             </span>
             <div className="receipt-header">
               <div className="receipt-header-left">
-                <div className="employee label-div">
+                <div className="employee-details-label">
                   <span className="employee-lable lable-name">
                     EMPLOYEE NO.
                   </span>
-                  <span>{staffData?.Staff_Number}</span>
-                </div>
-                <div className="tin label-div">
                   <span className="tin-lable lable-name">TIN</span>
-                  <span></span>
-                </div>
-                <div className="employee-name label-div">
                   <span className="employee-name-lable lable-name">
                     EMPLOYEE NAME
                   </span>
-                  <span>
-                    {`${staffData?.FirstName} ${staffData?.LastName}`}
-                  </span>
-                </div>
-                <div className="SSF label-div">
                   <span className="SSF-lable lable-name">SSF</span>
-                  <span>{staffData?.SSF}</span>
-                </div>
-                <div className="tier-2 label-div">
                   <span className="tier-2-lable lable-name">TIER 2</span>
-                  <span></span>
-                </div>
-                <div className="tier-3 label-div">
                   <span className="tier-3-lable lable-name">TIER 3</span>
-                  <span></span>
-                </div>
-                <div className="salary-grade label-div">
                   <span className="salary-grade-lable lable-name">
                     SALARY GRADE
                   </span>
-                  <span></span>
-                </div>
-                <div className="NOTCH label-div">
                   <span className="notch-lable lable-name">NOTCH</span>
-                  <span>{staffData?.Notch}</span>
-                </div>
-                <div className="date-employed label-div">
                   <span className="date-employed-lable lable-name">
                     DATE EMPLOYED
                   </span>
-                  <span>{`"${staffData?.HireDate}"`.slice(1, 12)}</span>
-                </div>
-                <div className="division label-div">
                   <span className="division lable-name">DIVISION</span>
-                  <span></span>
+                </div>
+
+                <div className="employee-details-value">
+                  <span>{staffData?.Staff_Number}</span>
+                  <span>-</span>
+                  <span>{`${staffData?.FirstName} ${staffData?.LastName}`}</span>
+                  <span>{staffData?.SSF}</span>
+                  <span>-</span>
+                  <span>-</span>
+                  <span>-</span>
+                  <span>{staffData?.Notch}</span>
+                  <span>{`"${staffData?.HireDate}"`.slice(1, 12)}</span>
+                  <span>-</span>
                 </div>
               </div>
+
               <div className="receipt-header-right">
-                <div className="employee-type label-div">
+                <div className="employee-details-label">
                   <span className="employee-type lable-name">
                     EMPLOYEE TYPE
                   </span>
-                  <span>{staffData?.EmployeeType}</span>
-                </div>
-                <div className="department label-div">
                   <span className="department lable-name">DEPARTMENT</span>
-                  <span>{staffData?.Department}</span>
-                </div>
-                <div className="section label-div">
                   <span className="section lable-name">SECTION</span>
-                  <span>54</span>
-                </div>
-                <div className="position label-div">
                   <span className="position lable-name">POSITION</span>
-                  <span></span>
-                </div>
-                <div className="location label-div">
                   <span className="location lable-name">LOCATION</span>
-                  <span></span>
-                </div>
-                <div className="unit label-div">
                   <span className="unit lable-name">UNIT</span>
-                  <span></span>
+                </div>
+
+                <div className="employee-details-value">
+                  <span>{staffData?.EmployeeType}</span>
+                  <span>{staffData?.Department}</span>
+                  <span>54</span>
+                  <span>-</span>
+                  <span>-</span>
+                  <span>-</span>
                 </div>
               </div>
             </div>

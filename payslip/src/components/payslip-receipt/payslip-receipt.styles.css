@@ -2,6 +2,7 @@
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   /* height: 100%; */
+  width: 100%;
 }
 
 .receipt-logo {
@@ -25,22 +26,55 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: left;
+  align-items: flex-start;
 }
 
-.label-div {
-  /* width: 400px; */
+.receipt-header-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.receipt-header-right > div {
+  display: flex;
+  flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.receipt-header-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.receipt-header-left > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.employee-details-value span {
+  font-size: 11px;
+}
+
+/* .label-div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 0.5rem;
-  /* background-color: red; */
-}
+ 
+} */
 
-.label-div > span {
+/* .label-div > span {
   font-size: 11px;
-}
+} */
 
 .payslip-date-title {
   display: inline-block;

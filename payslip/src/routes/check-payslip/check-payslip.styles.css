@@ -66,6 +66,7 @@
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  width: 100%;
 }
 .payslip-main-container::-webkit-scrollbar {
   display: none;
@@ -103,4 +104,14 @@
 .downloadBtn:hover {
   transform: scale(1.2);
   transition: all 0.25s ease;
+}
+
+@media only screen and (max-width: 480px) {
+  .payslip-main-container {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .date-picker-container {
+    width: 100%;
+  }
 }
