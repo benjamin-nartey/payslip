@@ -43,8 +43,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* display: grid;
-  place-items: center; */
 }
 
 .hero-image {
@@ -97,7 +95,3 @@
   display: block;
   height: 4.5rem;
 }
-
-
-
-
