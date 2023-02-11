@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import swal from "sweetalert";
 
 const override = {
   display: "block",
@@ -78,16 +79,22 @@ const Login = () => {
               },
             }
           );
-          // console.log(responseToken);
+          console.log(responseToken);
         }
       } catch (error) {
         switch (error.code) {
           case "ERR_NETWORK":
-            alert("Network error, check your internet connection");
+            swal(
+              "Network error!",
+              "...check your internet connection!",
+              "error"
+            );
             break;
           case "ERR_BAD_REQUEST":
-            alert(
-              "Request Error, make sure your subsidiary matches your Staff Id"
+            swal(
+              "Request Error!",
+              "...make sure your subsidiary matches your Staff Id!",
+              "error"
             );
             break;
           default:
@@ -108,8 +115,6 @@ const Login = () => {
           },
         });
 
-        console.log("here is the return object", responseData);
-
         if (responseData.data?.success) {
           setMainLoading(true);
           localStorage.setItem("token", JSON.stringify(token));
@@ -125,13 +130,13 @@ const Login = () => {
 
         switch (responseData.data?.error) {
           case "Token does not match":
-            alert("Invalid Token");
+            swal("Invalid Token", "token does not match", "error");
             break;
           case "Token Expired":
-            alert("Token Expired");
+            swal("Expired Token", "you've entered an expired token", "error");
             break;
           default:
-            console.log(responseData.data.error);
+            swal("Error", `"${responseData.data.error}"`, "error");
         }
       } catch (error) {
         console.log(error);
@@ -146,8 +151,8 @@ const Login = () => {
   };
   // console.log(formFields);
 
-  console.log(email, token);
-  console.log(employee_id, connection);
+  // console.log(email, token);
+  // console.log(employee_id, connection);
 
   return (
     <>
@@ -181,7 +186,7 @@ const Login = () => {
             {token && (
               <>
                 <span>
-                  A token has been sent to{" "}
+                  A token has been sent to
                   <span className="email">{email}</span>
                 </span>
 

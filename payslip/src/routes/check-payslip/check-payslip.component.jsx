@@ -5,6 +5,9 @@ import "./check-payslip.styles.css";
 import api from "../../api/axios";
 import { RiCloseFill, RiDownload2Fill } from "react-icons/ri";
 import PayslipReceipt from "../../components/payslip-receipt/payslip-receipt.component";
+import SidebarNav from "../../components/sidebar-nav/sidebar-nav.component";
+import TopNavbar from "../../components/top-navbar/top-navbar.component";
+import swal from "sweetalert";
 
 // const setCurrentMonthAndYear = () => {
 //   const now = new Date();
@@ -30,6 +33,12 @@ const CheckPayslip = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [payslipTitle, setPayslipTitle] = useState("");
   const printRef = useRef(null);
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  const toggleSidebarNav = () => {
+    setToggleSidebar(() => !toggleSidebar);
+    console.log(toggleSidebar);
+  };
 
   const { payslip_date } = formFields;
 
@@ -83,7 +92,7 @@ const CheckPayslip = () => {
   const generatedPayslipDate = formatDate(monthPayslip, yearPayslip);
   useEffect(() => {
     setPayslipTitle(generatedPayslipDate);
-  }, []);
+  }, [generatedPayslipDate]);
 
   const handleDownloadPdf = async () => {
     const element = printRef.current;
@@ -136,7 +145,7 @@ const CheckPayslip = () => {
     } catch (error) {
       switch (error.code) {
         case "ERR_NETWORK":
-          alert("Network Error, check internet connection");
+          swal("Network Error", "...check internet connection", "error");
           break;
         default:
           console.log(error);
@@ -157,6 +166,20 @@ const CheckPayslip = () => {
   // }, [pString]);
   return (
     <div className="check-payslip-container">
+      <div className="top-navbar-wrapper">
+        <TopNavbar toggleSidebarNav={toggleSidebarNav} />
+      </div>
+      <div
+        style={{
+          display: toggleSidebar ? "block" : "none",
+          animation: toggleSidebar
+            ? "slide-in .25s ease-in-out"
+            : "slide-out .25s ease-in-out",
+        }}
+        className="sidebar-nav-wrapper"
+      >
+        <SidebarNav />
+      </div>
       {!formSubmitted && (
         <div className="date-picker-container">
           <span>Select year and month</span>
@@ -176,26 +199,29 @@ const CheckPayslip = () => {
         </div>
       )}
       {formSubmitted && (
-        <div className="payslip-main-container">
-          <PayslipReceipt
-            payslipTitle={payslipTitle}
-            printRef={printRef}
-            style={{ height: "380px" }}
-            data={data}
-          />
-          <div className="closeBtn-container">
-            <RiCloseFill
-              className="close-btn "
-              onClick={() => setFormSubmitted(false)}
+        <>
+          <div className="background-blur"> </div>
+          <div className="payslip-main-container">
+            <PayslipReceipt
+              payslipTitle={payslipTitle}
+              printRef={printRef}
+              style={{ height: "380px" }}
+              data={data}
             />
+            <div className="closeBtn-container">
+              <RiCloseFill
+                className="close-btn "
+                onClick={() => setFormSubmitted(false)}
+              />
+            </div>
+            <div className="downloadBtn-container">
+              <RiDownload2Fill
+                onClick={handleDownloadPdf}
+                className="downloadBtn"
+              />
+            </div>
           </div>
-          <div className="downloadBtn-container">
-            <RiDownload2Fill
-              onClick={handleDownloadPdf}
-              className="downloadBtn"
-            />
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

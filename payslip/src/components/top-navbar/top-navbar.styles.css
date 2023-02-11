@@ -1,0 +1,48 @@
+.top-navbar {
+  position: fixed;
+  width: 100%;
+  height: 3.5rem;
+  background-color: #faf9f6;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 2;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-box {
+  height: 100%;
+}
+
+.logo-box img {
+  height: 100%;
+}
+
+.welcome-text-main {
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.welcome-text-sub {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.menu-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .top-navbar {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    justify-content: space-around;
+  }
+
+  .menu-icon {
+    display: block;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}

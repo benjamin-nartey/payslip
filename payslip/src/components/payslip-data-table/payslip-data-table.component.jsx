@@ -23,7 +23,7 @@ const PayslipDataTable = ({ data }) => {
   useEffect(() => {
     setNewData(data[0]);
   }, [data]);
-  useMemo(() => data, []);
+  useMemo(() => data, [data]);
   const columns = useMemo(
     () => [
       {
